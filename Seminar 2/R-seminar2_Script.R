@@ -21,12 +21,12 @@
 # Først setter vi working directory til den mappen vi ønsker å hente og lagre 
 # filer til.  
 
-# Her kan man enten bruke "setwd"-funksjonen eller så kan man trykke "Session" i 
-# verktøy-linjen - "Set Working Directory" - "Choose Directory" for å velge 
-# en mappe. 
+# Her kan man enten bruke "setwd"-funksjonen og kopiere filstien til der man vil 
+# lagre scriptet eller så kan man trykke "Session" i verktøy-linjen - 
+# "Set Working Directory" - "Choose Directory" for å velge en mappe. 
 
 getwd()
-setwd("C:/Users/sk_gr/OneDrive - Universitetet i Oslo/5. år statsvitenskap/STV1020/R-seminarer/R-seminar 2")
+setwd("filstien")
 
 # Vi skal bruke et datasett fra European Social Survey Round 9 (2018), og dette
 # datasettet inneholder svarene fra norske respondenter. Filen heter 

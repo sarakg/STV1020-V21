@@ -22,48 +22,49 @@ setwd("")
 library(tidyverse)
 
 ## Laster inn datasett fra github: https://raw.githubusercontent.com/louisabo/STV4020A/master/SEMINAR3/internett.csv 
-data <- read.csv(___________)
+data <- read.csv("")
 
 ## Inspiserer datasettet
 View(data)
-____(data)
 _____(data)
-______(data) 
+_____(data)
+_______(data) 
 
 #### 2. Missing - NA - NOT AVAILBLE ####
 
 ## Finner antall missing i hele datasettet
-___(____(data)) 
+____(____(data)) 
 
 ## Finner antall missing på bestemte variabler
-sum(is.na(data$________))
-sum(is.na(data$________))
+sum(is.na(data$____))
+sum(is.na(data$_______))
 
 # Summary gir også info om NAs
 _______(data$internettbruk)
 
 # Droppe NAs på variabler
 no_na_data <- data %>% 
-  ______(_____, _____)
+  _______(_____, _____)
 
 # Sjekker at det ble riktig
-sum(is.na(______$_______))
+sum(is.na(_____$_______))
 
 #### 3. Statistiske mål ####
 
 # Rask oversikt over viktige statistiske mål
-summary(data)
+______(data)
 
 # Gjennomsnitt og median
 mean(data$tillit, ____ = TRUE) 
 median(data$tillit, ____ = TRUE) 
 
 # Standardavvik, gjennomsnittlig avstand fra gjennomsnittet 
-___(data$tillit, na.rm = TRUE)
+sdavvik <- _____(data$_____, na.rm = TRUE)
 
 # Varians, standardavviket ^2 (lagrer i eget objekt)
-varians <- ___(data$tillit, na.rm = TRUE)
-____(varians) # Får standardavviket igjen
+varians <- ____(data$_____, na.rm = TRUE)
+_____(varians) # Får standardavviket igjen
+sdavvik^2
 
 #### 3. Univariat analyse ####
 
@@ -72,34 +73,34 @@ str(____)
 
 ## Kategoriske variabler ##
 
-# Frekvenstabeller for kategoriske variabler (internettbruk)
-table(data$internettbruk)
-
-# Lagrer tabellen i et objekt
-tabell <- table(data$internettbruk)
+# Frekvenstabell (internettbruk)
+tabell <- _____(data$________)
 tabell
 
 # Relativ fordeling i prosent
-tabell_2 <- prop.table(table(data$internettbruk))*___
+tabell_2 <- prop.table(_____)*____
 tabell_2
 
 # Alternativt:
 install.packages("gmodels")
 library(gmodels)
 
-_________(data$internettbruk)
+_______(data$internettbruk)
 
-# Søylediagram for grafisk beskrivelse av tabellene, bruker ggplot 
-ggplot(data, aes(_____)) + 
-  geom_bar()
+# Søylediagram for grafisk beskrivelse 
+ggplot(data, aes(internettbruk)) + 
+  _______()
 
 ## Kontinuerlige variabler ##
 
-# Histogram for alder (kontinuerlig variabel)
-ggplot(data, aes(_____)) + 
+# Histogram for alder 
+ggplot(data, aes(____)) + 
   geom_histogram(bins = 20, 
                  fill = "grey", 
                  col = "white")
+
+ggplot(data, aes(____)) + 
+  geom_density()
 
 ## Eksportere tabeller med deskriptiv statistikk ##
 
@@ -107,50 +108,50 @@ ggplot(data, aes(_____)) +
 install.packages("stargazer")
 library(stargazer)
 
-stargazer(____, 
-          type = "____") # text/html
+stargazer(data, 
+          type = "____" # text/html
 
 #### 5. Bivariat analyse #### 
 
 ## To kateogriske variabler ##
 
 # Lager krysstabell for internettbruk og kjønn
-krysstabell <- ____(data$_______, data$_____)
+krysstabell <- ____(data$______, data$____)
 krysstabell
 
 # Krystabell i relative tall 
-prop.table(krysstabell, _____ = 1)*____
+________(krysstabell, ____ = 1)*100
 
 # Kjikvadrattesten
-______(_______)
-# X-squared 
+_______(krysstabell)
+# X-squared og p-verdi
 
 # Søylediagram for internettbruk og kjønn
-ggplot(data, aes(x = internettbruk , fill = as.factor(kjonn))) + 
-  geom_bar(position = "_____") + # "dodge", "fill"
-  ____(fill = "_____")
+ggplot(data, aes(x = ______ , fill = as.factor(____))) + 
+  geom_bar(position = "____") + # "dodge", "fill"
+  labs(fill = "Kjønn")
 
 ## To kontinuerlige variabler ## 
 
 # Pearsons r for alder og utdanning
 R <- ___(x = data$alder, 
          y = data$utdanning, 
-         use = "_____", # Missing?
-         method = "______") # Spesifiserer 
+         use = "______", # Missing?
+         method = "_____") # Spesifiserer 
 R
 R^2
 
 # Tester om korrelasjonen er statistisk signifikant
-______(x = data$alder, 
+________(x = data$alder, 
          y = data$utdanning, 
          use = "______")
 
 # Korrelasjonsmatrise for hele datasettet
-cor(____, 
-    use = "complete.obs")
+cor(_____, 
+    use = "__________")
 
 # Spredningsdiagram 
 ggplot(data, aes(alder, utdanning)) + 
   geom_point() +
-  ______(method = "____") # Med regresjonstype (lineær) støttelinje
+  _______(method = "____") # Med regresjonstype (lineær) støttelinje
 

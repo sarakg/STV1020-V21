@@ -68,9 +68,6 @@ FairFPSR3 <- FairFPSR3 %>%
 class(FairFPSR3$growth_dich)
 table(FairFPSR3$growth_dich, useNA = "always")
 
-
-#### 3. Plotting ####
-
 ## Plotting av growth, fylt med farge for growth, ikke-growth 
 ggplot(FairFPSR3, aes(x = growth, fill = growth_dich)) + 
   geom_histogram(binwidth = 1) + 
@@ -79,7 +76,9 @@ ggplot(FairFPSR3, aes(x = growth, fill = growth_dich)) +
   theme_bw() +
   theme(legend.title = element_blank()) # Tittel på kategorimerkene til høyre er blank
 
-## Litt plotting før regresjon
+
+#### 3. Plotting ####
+
 ## Sammenhengen mellom økonomisk vekst og andel som stemte på det sittende partiet
 ggplot(FairFPSR3, aes(x = growth, y = inc_vote)) +
   geom_point() +
@@ -107,28 +106,17 @@ stargazer(model,
           type = "html",
           out = "modellen.html")
 
-## Legger til variabler med fitted restledd
-FairFPSR3 <- FairFPSR3 %>% 
-  mutate(fitted = fitted(model), # fitted punkter
-         residuals = resid(model)) # restledd
-
-# Legger til regresjonslinje i plottet
+## Plotter regresjonslinjen i plottet fra i stad
 ggplot(FairFPSR3, aes(x = growth, y = inc_vote)) +
   geom_point() +
-  labs(x = "Percentage change in Real GDP Per Capita", 
-       y = "Incumbent-Party Vote Percentage") + 
+  labs(x = "Percentage Change in Real GDP Per Capita", 
+       y = "Incumbent-Party Vote Percentage", 
+       title = "Scatterplot of change in GDP and incumbent party-vote share") +
   theme_bw() +
-  geom_line(aes(x = growth, y = fitted)) # Legger til regresjonslinje
-
-# Legger til stiplede linjer som viser gjennomsnittet til x og y-variablene
-ggplot(FairFPSR3, aes(x = growth, y = inc_vote)) +
-  geom_point() +
-  labs(x = "Percentage change in Real GDP Per Capita", 
-       y = "Incumbent-Party Vote Percentage") +
-  theme_bw() +
-  geom_line(aes(x = growth, y = fitted)) +
+  geom_smooth(method = "lm") + # Legger til regresjonslinje
   geom_hline(yintercept = mean(FairFPSR3$inc_vote), linetype = "dashed") +
   geom_vline(xintercept = mean(FairFPSR3$growth), linetype = "dashed")
+  # Legger til stiplede linjer som viser gjennomsnittet til x- og y-variabelen
 
 # Gjennomsnittet til x og y
 mean(FairFPSR3$growth)
